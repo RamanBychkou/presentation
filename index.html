@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Webpack</h1>
+					
+					<p>
+						<small>Created by <a href="#">Roman Bychkov</a></small>
+					</p>
+        </section>
+        <section>
+          <section>
+            <h2>What is webpack?</h2> 
+            <p class="fragment">It is module bundler</p> 
+          </section>
+          <section data-background ="./img/webpack-files.png"></section>
+          <section >
+            <h2>Alternatives</h2>
+            <ul>
+              <li>Gulp</li>
+              <li>Grunt</li>
+            </ul>
+          </section>
+        </section>
+        
+				<section>
+          <h2>Features of Webpack</h2>
+          <ul>
+              <li class="fragment">Code Splitting</li>
+              <li class="fragment">Loaders
+                </li>
+              <li class="fragment">Clever parsing</li>
+              <li class="fragment">Plugin system</li>
+            </ul>
+        </section>
+        <section>
+          <h2>Basic concepts of Webpack</h2>
+            <ul>
+              <li>webpack.config.js</li>
+              <li>Entry</li>
+              <li>Outer</li>
+              <li>Loaders</li>
+              <li>Plugin system</li>
+              <li>Mode</li>
+              <li>Browser Compability</li>
+            </ul>
+        </section>
+         <section>
+           <h2>Entry and Outer</h2>
+            <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; width: 1000px">
+                const path = require('path');
+
+                module.exports = {
+                  entry: './path/to/my/entry/file.js',
+                  output: {
+                    path: path.resolve(__dirname, 'dist'),
+                    filename: 'my-first-webpack.bundle.js'
+                  }
+                };
+            </code></pre>
+         </section>
+         <section>
+           <section>
+              <h2>Loaders</h2>
+              <pre><code data-trim contenteditable style="font-size: 18px; width: 1000px">
+                  npm install --save-dev css-loader
+                  npm install --save-dev ts-loader
+               </code></pre>
+           </section>
+            <section>
+              <h2>Three ways to use</h2>
+              <h4>Configuration example</h4>
+              <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; width: 1000px">
+                  module.exports = {
+                    module: {
+                      rules: [
+                        { test: /\.css$/, use: 'css-loader' },
+                        { test: /\.ts$/, use: 'ts-loader' }
+                      ]
+                    }
+                  };
+              </code></pre>
+              <h4>Inline example</h4>
+              <pre><code  data-trim contenteditable style="font-size: 18px; width: 1000px">import Styles from 'style-loader!css-loader?modules!./styles.css';</code></pre>
+              <h4>Cli example</h4>
+              <pre><code  data-trim contenteditable style="font-size: 18px; width: 1000px">webpack --module-bind jade-loader --module-bind 'css=style-loader!css-loader'</code></pre>   
+            </section>
+            <section>
+              <h2>Features of Loaders</h2>
+              <ul>
+                  <li>Loaders can be chained</li>
+                  <li>Loaders can be synchronous or asynchronous</li>
+                  <li>Loaders can be configured with an options object </li>
+                  <li>Plugins can give loaders more features.</li>
+                  <li>Loaders can emit additional arbitrary files</li>
+                </ul>
+            </section>
+         </section>
+         <section>
+           <h2>Plugin system</h2>
+           <pre><code>
+            plugins: [
+            new webpack.ProgressPlugin(),
+            new HtmlWebpackPlugin({template: './src/index.html'})
+          ]
+           </code></pre>
+         </section>
+         <section><h2>Mode</h2>
+          <h4>In webpack.config.js</h4>
+         <pre><code>
+          module.exports = {
+            mode: 'production'
+          };
+         </code></pre>
+         <h3>CLI argument</h3>
+         <pre><code>
+          webpack --mode=production
+         </code></pre>
+        </section>
+        <section>
+          <h2>Thanks for your attention</h2>
+        </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
