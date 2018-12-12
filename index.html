@@ -36,7 +36,9 @@
             <h2>What is webpack?</h2> 
             <p class="fragment">It is module bundler</p> 
           </section>
-          <section data-background ="./img/webpack-files.png"></section>
+          <section >
+            <img src="./img/webpack-files.png" alt="img" style="width: 912px; height: 406px">
+          </section>
         </section>
         
 				<section>
@@ -58,7 +60,6 @@
               <li>Loaders</li>
               <li>Plugin system</li>
               <li>Mode</li>
-              <li>Browser Compability</li>
             </ul>
         </section>
          <section>
@@ -67,10 +68,10 @@
                 const path = require('path');
 
                 module.exports = {
-                  entry: './path/to/my/entry/file.js',
+                  entry: './src/index.js',
                   output: {
                     path: path.resolve(__dirname, 'dist'),
-                    filename: 'my-first-webpack.bundle.js'
+                    filename: 'main.js'
                   }
                 };
             </code></pre>
@@ -86,27 +87,42 @@
             <section>
               <h2>Three ways to use</h2>
               <h4>Configuration example</h4>
-              <pre><code class="javascript" data-trim contenteditable style="font-size: 18px; width: 1000px">
-                  module.exports = {
-                    module: {
-                      rules: [
-                        { test: /\.css$/, use: 'css-loader' },
-                        { test: /\.ts$/, use: 'ts-loader' }
-                      ]
-                    }
-                  };
+              <pre style=" height: 700px"><code class="javascript" data-trim contenteditable style="font-size: 14px; width: 1000px;">
+                module.exports = {
+                  module: {
+                    rules: [
+                      {
+                        test: /\.css$/,
+                        use: [
+                          { loader: 'style-loader' },
+                          {
+                            loader: 'css-loader',
+                            options: {
+                              modules: true
+                            }
+                          },
+                          { loader: 'sass-loader' }
+                        ]
+                      }
+                    ]
+                  }
+                };
               </code></pre>
-              <h4>Inline example</h4>
+              </section>
+              <section>
+                <h4>Inline example</h4>
               <pre><code  data-trim contenteditable style="font-size: 18px; width: 1000px">import Styles from 'style-loader!css-loader?modules!./styles.css';</code></pre>
               <h4>Cli example</h4>
               <pre><code  data-trim contenteditable style="font-size: 18px; width: 1000px">webpack --module-bind jade-loader --module-bind 'css=style-loader!css-loader'</code></pre>   
-            </section>
+            
+              </section>
             <section>
               <h2>Features of Loaders</h2>
               <ul>
                   <li>Loaders can be chained</li>
                   <li>Loaders can be synchronous or asynchronous</li>
                   <li>Loaders can be configured with an options object </li>
+                  <li>Can be run in Node.js</li>
                   <li>Plugins can give loaders more features.</li>
                   <li>Loaders can emit additional arbitrary files</li>
                 </ul>
